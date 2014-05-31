@@ -587,6 +587,9 @@ MAKEFLAGS=%{?_smp_mflags} \
     -dbus-linked \
     -no-strip \
     -no-separate-debug-info \
+%ifarch %{ix86} x86_64
+    -reduce-relocations \
+%endif
     -verbose \
     -no-gtkstyle \
     -opengl es2 \
