@@ -1,0 +1,26 @@
+From de346e23ceee2b9e9423e9d1b7f24921ebe434eb Mon Sep 17 00:00:00 2001
+From: Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+Date: Sat, 31 May 2014 13:23:13 +0000
+Subject: [PATCH] Fix error building with qreal set to float
+
+Fix build failure with ambiguous conversion.
+---
+ src/widgets/widgets/qlineedit_p.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/widgets/widgets/qlineedit_p.cpp b/src/widgets/widgets/qlineedit_p.cpp
+index 10689b2..0cacbbd 100644
+--- a/src/widgets/widgets/qlineedit_p.cpp
++++ b/src/widgets/widgets/qlineedit_p.cpp
+@@ -349,7 +349,7 @@ void QLineEditIconButton::startOpacityAnimation(qreal endValue)
+ void QLineEditIconButton::updateCursor()
+ {
+ #ifndef QT_NO_CURSOR
+-    setCursor(qFuzzyCompare(m_opacity, 1.0) || !parentWidget() ? QCursor(Qt::ArrowCursor) : parentWidget()->cursor());
++    setCursor(qFuzzyCompare(m_opacity, (qreal)1.0) || !parentWidget() ? QCursor(Qt::ArrowCursor) : parentWidget()->cursor());
+ #endif
+ }
+ 
+-- 
+1.8.3-rc3
+
