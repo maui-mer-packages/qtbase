@@ -602,8 +602,8 @@ MAKEFLAGS=%{?_smp_mflags} \
 %endif
     -no-xinput2 \
     -kms \
-    -qreal float
-#    -journald
+    -qreal float \
+    -journald
 
 make %{?_smp_mflags}
 
