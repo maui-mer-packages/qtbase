@@ -594,6 +594,7 @@ MAKEFLAGS=%{?_smp_mflags} \
     -no-gtkstyle \
     -opengl es2 \
     -no-openvg \
+    -openssl-linked \
     -lfontconfig \
     -I/usr/include/freetype2 \
     -nomake tests \
