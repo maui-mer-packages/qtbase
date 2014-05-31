@@ -706,6 +706,7 @@ ln -s %{_sysconfdir}/xdg/qtchooser/5.conf %{buildroot}%{_sysconfdir}/xdg/qtchoos
 %{_libdir}/qt5/bin/syncqt.pl
 %{_libdir}/qt5/bin/uic
 %{_libdir}/qt5/bin/qdoc
+%{_libdir}/qt5/bin/qlalr
 %{_docdir}/qt5/*
 
 %files qtcore
