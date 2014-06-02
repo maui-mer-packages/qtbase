@@ -25,6 +25,7 @@ Source0:    %{name}-%{version}.tar.bz2
 Source1:    macros.qt5-default
 Source100:  qtbase-rpmlintrc
 Patch1:     fix-build-qreal.patch
+Patch2:     qtbase-opensource-src-5.3.0-no_xkbcommon-x11.patch
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(egl)
@@ -74,7 +75,12 @@ BuildRequires:  pkgconfig(xrender)
 BuildRequires:  pkgconfig(xt)
 BuildRequires:  pkgconfig(xtst)
 BuildRequires:  pkgconfig(xv)
-BuildRequires:  libxkbcommon-devel
+
+BuildRequires: pkgconfig(xcb-xkb) >= 1.10
+%global xkbcommon -system-xkbcommon
+BuildRequires: pkgconfig(xkbcommon) >= 0.4.1
+BuildRequires: pkgconfig(xkbcommon-x11) >= 0.4.1
+
 %endif
 
 BuildRequires:  pkgconfig(gbm)
@@ -547,6 +553,10 @@ This package contains the Qt5 development defaults package
 
 %patch1 -p1 -b .fixqreal
 
+%if 0%{?no_xkbcommon_x11}
+%patch2 -p1 -b .xkbcommon
+%endif
+
 %build
 touch .git
 
@@ -585,6 +595,7 @@ MAKEFLAGS=%{?_smp_mflags} \
     -system-zlib \
     -system-libpng \
     -system-libjpeg \
+    %{?xkbcommon} \
     -no-rpath \
     -optimized-qmake \
     -dbus-linked \
