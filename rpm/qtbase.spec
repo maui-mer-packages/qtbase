@@ -620,7 +620,9 @@ MAKEFLAGS=%{?_smp_mflags} \
 %endif
     -no-xinput2 \
     -kms \
+%ifnarch %{ix86} x86_64
     -qreal float \
+%endif
     -journald
 
 make %{?_smp_mflags}
