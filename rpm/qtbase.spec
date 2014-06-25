@@ -31,6 +31,9 @@ BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(glesv2)
+%ifarch %{ix86} x86_64
+BuildRequires:  pkgconfig(gl)
+%endif
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(icu-uc)
 BuildRequires:  pkgconfig(libpng)
@@ -340,6 +343,9 @@ applications that use QtDBus
 %package qtgui
 Summary:    The QtGui Library
 Group:      Qt/Qt
+%ifarch %{ix86} x86_64
+Requires:   libGL
+%endif
 Requires(post):     /sbin/ldconfig
 Requires(postun):   /sbin/ldconfig
 
@@ -350,6 +356,9 @@ This package contains the QtGui library
 %package qtgui-devel
 Summary:    Development files for QtGui
 Group:      Qt/Qt
+%ifarch %{ix86} x86_64
+Requires:   libGL-devel
+%endif
 Requires:   %{name}-qtgui = %{version}-%{release}
 Requires:   %{name}-qtopengl-devel
 
@@ -606,7 +615,12 @@ MAKEFLAGS=%{?_smp_mflags} \
 %endif
     -verbose \
     -no-gtkstyle \
+%ifarch %{arm}
     -opengl es2 \
+%endif
+%ifarch %{ix86} x86_64
+    -opengl desktop \
+%endif
     -no-openvg \
     -openssl-linked \
     -lfontconfig \
