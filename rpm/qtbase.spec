@@ -482,6 +482,7 @@ This package contains the QtWidgets library
 Summary:    Development files for QtWidgets
 Group:      Qt/Qt
 Requires:   %{name}-qtwidgets = %{version}-%{release}
+Requires:   qt5-plugin-accessible-widgets = %{version}-%{release}
 
 %description qtwidgets-devel
 This package contains the files necessary to develop
