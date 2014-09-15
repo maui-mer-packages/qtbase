@@ -8,6 +8,17 @@
 # This flag tells rpmbuild to behave.
 %define keepstatic 1
 
+# Pick which OpenGL implementation we need, on ARM it should alwas be
+# GLES2 and desktop GL on x86 PCs but the latter breaks qtwayland so we
+# temporarily pick GLES2 for x86 too.
+#%ifarch %{ix86} x86_64
+#%define opengl desktop
+#%endif
+#%ifarch %{arm}
+#%define opengl es2
+#%endif
+%define opengl es2
+
 # Version is the date of latest commit in qtbase, followed by 'g' + few
 # characters of the last git commit ID.
 # NOTE: tarball's prefix is 'qt5-base' until version number starts to
@@ -30,9 +41,11 @@ BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(freetype2)
-BuildRequires:  pkgconfig(glesv2)
-%ifarch %{ix86} x86_64
+%if "%{opengl}" == "desktop"
 BuildRequires:  pkgconfig(gl)
+%endif
+%if "%{opengl}" == "es2"
+BuildRequires:  pkgconfig(glesv2)
 %endif
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(icu-uc)
@@ -616,12 +629,7 @@ MAKEFLAGS=%{?_smp_mflags} \
 %endif
     -verbose \
     -no-gtkstyle \
-%ifarch %{arm}
-    -opengl es2 \
-%endif
-%ifarch %{ix86} x86_64
-    -opengl desktop \
-%endif
+    -opengl %{opengl} \
     -no-openvg \
     -openssl-linked \
     -lfontconfig \
