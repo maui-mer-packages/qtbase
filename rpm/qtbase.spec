@@ -25,14 +25,14 @@
 # make sense. This allows to update spec contents easily as snapshots
 # evolve.
 
-Name:       qt5
+Name:       qtbase
 Summary:    Cross-platform application and UI framework
-Version:    5.0.2
+Version:    5.3.1
 Release:    1%{?dist}
 Group:      Qt/Qt
 License:    LGPLv2.1 with exception or GPLv3
-URL:        http://qt.nokia.com
-Source0:    %{name}-%{version}.tar.bz2
+URL:        http://qt.io
+Source0:    %{name}-%{version}.tar.xz
 Source1:    macros.qt5-default
 Source100:  qtbase-rpmlintrc
 Patch1:     fix-build-qreal.patch
