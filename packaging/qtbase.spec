@@ -27,7 +27,7 @@
 
 Name:       qtbase
 Summary:    Cross-platform application and UI framework
-Version:    5.3.1
+Version:    5.3.2
 Release:    1%{?dist}
 Group:      Qt/Qt
 License:    LGPLv2.1 with exception or GPLv3
